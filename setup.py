@@ -9,8 +9,8 @@ from setuptools import find_packages
 
 setup(
     # Project
-    name='flatlib',
-    version='0.2.3',
+    name='flatlib_tesla',
+    version='0.0.1',
 
     # Sources
     packages=find_packages(),
@@ -26,13 +26,13 @@ setup(
 
     # Metadata
     description='Python library for Traditional Astrology',
-    url='https://github.com/flatangle/flatlib',
+    url='https://github.com/Tesla2678/flatlib_tesla',
     keywords=['Astrology', 'Traditional Astrology'],
     license='MIT',
 
     # Authoring
-    author='João Ventura',
-    author_email='flatangleweb@gmail.com',
+    author='Tesla',
+    author_email='Tesla2678@gmail.com',
 
     # Classifiers
     classifiers=[
