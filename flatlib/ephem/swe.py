@@ -15,26 +15,27 @@ import swisseph
 from flatlib import angle
 from flatlib import const
 
+
 # Map objects
 SWE_OBJECTS = {
     const.SUN: 0,
     const.MOON: 1,
-    const.MERCURY: 2,
+    const.MERCURY: 2, 
     const.VENUS: 3,
     const.MARS: 4,
-    const.JUPITER: 5,
+    const.JUPITER: 5, 
     const.SATURN: 6,
     const.URANUS: 7,
-    const.NEPTUNE: 8,
+    const.NEPTUNE: 8, 
     const.PLUTO: 9,
-    const.CHIRON: 15,
+    const.CHIRON: 15, 
     const.NORTH_NODE: 10
 }
 
 # Map house systems
 SWE_HOUSESYS = {
     const.HOUSES_PLACIDUS: b'P',
-    const.HOUSES_KOCH: b'K',
+    const.HOUSES_KOCH: b'K', 
     const.HOUSES_PORPHYRIUS: b'O',
     const.HOUSES_REGIOMONTANUS: b'R',
     const.HOUSES_CAMPANUS: b'C',
@@ -42,9 +43,9 @@ SWE_HOUSESYS = {
     const.HOUSES_EQUAL_2: b'E',
     const.HOUSES_VEHLOW_EQUAL: b'V',
     const.HOUSES_WHOLE_SIGN: b'W',
-    const.HOUSES_MERIDIAN: b'X',
+    const.HOUSES_MERIDIAN: b'X', 
     const.HOUSES_AZIMUTHAL: b'H',
-    const.HOUSES_POLICH_PAGE: b'T',
+    const.HOUSES_POLICH_PAGE: b'T', 
     const.HOUSES_ALCABITUS: b'B',
     const.HOUSES_MORINUS: b'M'
 }
@@ -59,25 +60,28 @@ def setPath(path):
 
 # === Object functions === #
 
-def sweObject(obj, jd):
+def sweObject(obj, jd,flags):
     """ Returns an object from the Ephemeris. """
+    # print(obj)
     sweObj = SWE_OBJECTS[obj]
-    sweList, flg = swisseph.calc_ut(jd, sweObj)
+    sweList, flg = swisseph.calc_ut(jd, sweObj,flags)
+    # print("in sweObject")
+    # print(f"flag:{flg}")
     return {
         'id': obj,
         'lon': sweList[0],
         'lat': sweList[1],
         'lonspeed': sweList[3],
-        'latspeed': sweList[4]
+        'latspeed': sweList[4],
+        'flg':flg
     }
-
-
-def sweObjectLon(obj, jd):
+    
+def sweObjectLon(obj, jd,flags):
     """ Returns the longitude of an object. """
     sweObj = SWE_OBJECTS[obj]
-    sweList, flg = swisseph.calc_ut(jd, sweObj)
+    sweList, flg = swisseph.calc_ut(jd, sweObj,flags)
+    # print(f"flag:{flg}")
     return sweList[0]
-
 
 def sweNextTransit(obj, jd, lat, lon, flag):
     """ Returns the julian date of the next transit of
@@ -91,38 +95,45 @@ def sweNextTransit(obj, jd, lat, lon, flag):
 
 
 # === Houses and angles === #
-
-def sweHouses(jd, lat, lon, hsys):
+        
+def sweHouses(jd, lat, lon, hsys,flags):
     """ Returns lists of houses and angles. """
     hsys = SWE_HOUSESYS[hsys]
-    hlist, ascmc = swisseph.houses(jd, lat, lon, hsys)
+    # if not flags==swisseph.FLG_SIDEREAL:
+    #     flags=0
+    hlist, ascmc = swisseph.houses_ex(jd, lat, lon, hsys,flags)
     # Add first house to the end of 'hlist' so that we
     # can compute house sizes with an iterator 
     hlist += (hlist[0],)
     houses = [
         {
             'id': const.LIST_HOUSES[i],
-            'lon': hlist[i],
-            'size': angle.distance(hlist[i], hlist[i + 1])
+            'lon': hlist[i], 
+            'size': angle.distance(hlist[i], hlist[i+1])
         } for i in range(12)
     ]
     angles = [
-        {'id': const.ASC, 'lon': ascmc[0]},
+        {'id': const.ASC, 'lon': ascmc[0]}, 
         {'id': const.MC, 'lon': ascmc[1]},
         {'id': const.DESC, 'lon': angle.norm(ascmc[0] + 180)},
         {'id': const.IC, 'lon': angle.norm(ascmc[1] + 180)}
     ]
     return (houses, angles)
-
-
-def sweHousesLon(jd, lat, lon, hsys):
+    
+def sweHousesLon(jd, lat, lon, hsys,flags):
     """ Returns lists with house and angle longitudes. """
     hsys = SWE_HOUSESYS[hsys]
-    hlist, ascmc = swisseph.houses(jd, lat, lon, hsys)
+    # print("in sweHousesLon")
+    # print(f"flags::{flags}")
+    # if flags|swisseph.FLG_SIDEREAL==flags:
+    #     flags=flags
+    # else:
+    #     flags
+    hlist, ascmc = swisseph.houses_ex(jd, lat, lon, hsys,flags)
     angles = [
         ascmc[0],
         ascmc[1],
-        angle.norm(ascmc[0] + 180),
+        angle.norm(ascmc[0] + 180), 
         angle.norm(ascmc[1] + 180)
     ]
     return (hlist, angles)
@@ -134,12 +145,16 @@ def sweHousesLon(jd, lat, lon, hsys):
 # slow because it parses the fixstars.cat file every 
 # time..
 
-def sweFixedStar(star, jd):
+def sweFixedStar(star, jd,flags):
     """ Returns a fixed star from the Ephemeris. """
-    sweList, stnam, flg = swisseph.fixstar2_ut(star, jd)
+    # flag=flags|swisseph.FLG_SWIEPH
+    flag=0
+    sweList, stnam, flg = swisseph.fixstar2_ut(star, jd,flag)
+    # print("in fixed star")
+    # print(flg)
     mag = swisseph.fixstar2_mag(star)
     return {
-        'id': star,
+        'id': star, 
         'mag': mag,
         'lon': sweList[0],
         'lat': sweList[1]
@@ -161,7 +176,6 @@ def solarEclipseGlobal(jd, backward):
         'center_line_begin': sweList[1][6],
         'center_line_end': sweList[1][7],
     }
-
 
 def lunarEclipseGlobal(jd, backward):
     """ Returns the jd details of previous or next global lunar eclipse. """

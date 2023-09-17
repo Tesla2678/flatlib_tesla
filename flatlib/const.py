@@ -1,12 +1,10 @@
 """
     This file is part of flatlib - (C) FlatAngle
     Author: João Ventura (flatangleweb@gmail.com)
-    
-
     This module defines the names of signs, objects, angles, 
     houses and fixed-stars used in the library.
-
 """
+
 
 # === Base constants === */
 
@@ -49,6 +47,7 @@ MOON_SECOND_QUARTER = 'Second Quarter'
 MOON_THIRD_QUARTER = 'Third Quarter'
 MOON_LAST_QUARTER = 'Last Quarter'
 
+
 # === Signs === */
 
 ARIES = 'Aries'
@@ -81,6 +80,7 @@ SIGN_STERILE = 'Sterile'
 SIGN_MODERATELY_FERTILE = 'Moderately Fertile'
 SIGN_MODERATELY_STERILE = 'Moderately Sterile'
 
+
 # === Objects === */
 
 # Names
@@ -95,10 +95,21 @@ URANUS = 'Uranus'
 NEPTUNE = 'Neptune'
 PLUTO = 'Pluto'
 CHIRON = 'Chiron'
-NORTH_NODE = 'North Node'
-SOUTH_NODE = 'South Node'
+NORTH_NODE = 'North_Node'
+SOUTH_NODE = 'South_Node'
 SYZYGY = 'Syzygy'
-PARS_FORTUNA = 'Pars Fortuna'
+
+PARS_FORTUNA = 'Pars_Fortuna'
+PARS_JINGSHEN="Pars_Jingshen"
+PARS_AISHEN="Pars_Aishen"
+PARS_PINKUN="Pars_Pinkun"
+PARS_YONGQI="Pars_Yongqi"
+PARS_SHENGLI="Pars_Shengli"
+PARS_BAOYING="Pars_Baoying"
+PARS_QIZI="Pars_Qizi"
+PARS_ZHANGFU="Pars_Zhangfu"
+PARS_JIEHUNDIAN_MALE="Pars_JiehunMale"
+PARS_JIEHUNDIAN_FEMALE="Pars_JiehunFemale"
 NO_PLANET = 'None'
 
 # Object movement
@@ -119,6 +130,7 @@ OBJ_FIXED_STAR = 'Fixed Star'
 OBJ_ASTEROID = 'Asteroid'
 OBJ_LUNATION = 'Lunation'
 OBJ_GENERIC = 'Generic'
+
 
 # === Houses === */
 
@@ -159,7 +171,8 @@ HOUSES_AZIMUTHAL = 'Azimuthal'
 HOUSES_POLICH_PAGE = 'Polich Page'
 HOUSES_ALCABITUS = 'Alcabitus'
 HOUSES_MORINUS = 'Morinus'
-HOUSES_DEFAULT = HOUSES_ALCABITUS
+HOUSES_DEFAULT = HOUSES_PLACIDUS
+
 
 # === Angles === */
 
@@ -167,6 +180,7 @@ ASC = 'Asc'
 DESC = 'Desc'
 MC = 'MC'
 IC = 'IC'
+
 
 # === Fixed Stars === */
 
@@ -207,6 +221,7 @@ STAR_FOMALHAUT = 'Fomalhaut'
 STAR_DENEB_ADIGE = 'Deneb'  # Alpha-Cygnus
 STAR_ACHERNAR = 'Achernar'
 
+
 # === Aspects === */
 
 # Major Aspects
@@ -234,7 +249,7 @@ EXACT = 'Exact'
 NO_MOVEMENT = 'None'
 
 # Aspect direction
-DEXTER = 'Dexter'  # Right side
+DEXTER = 'Dexter'      # Right side
 SINISTER = 'Sinister'  # Left side
 
 # Aspect properties
@@ -246,6 +261,7 @@ MAJOR_ASPECTS = [0, 60, 90, 120, 180]
 MINOR_ASPECTS = [30, 36, 45, 72, 108, 135, 144, 150]
 ALL_ASPECTS = MAJOR_ASPECTS + MINOR_ASPECTS
 
+
 # === Some Lists === */
 
 LIST_SIGNS = [
@@ -254,8 +270,8 @@ LIST_SIGNS = [
 ]
 
 LIST_OBJECTS = [
-    SUN, MOON, MERCURY, VENUS, MARS, JUPITER, SATURN,
-    URANUS, NEPTUNE, PLUTO, CHIRON, NORTH_NODE,
+    SUN, MOON, MERCURY, VENUS, MARS, JUPITER, SATURN, 
+    URANUS, NEPTUNE, PLUTO,  NORTH_NODE,
     SOUTH_NODE, SYZYGY, PARS_FORTUNA,
 ]
 

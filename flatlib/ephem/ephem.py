@@ -17,62 +17,59 @@ from . import eph
 from . import swe
 
 from flatlib.datetime import Datetime
-from flatlib.object import (GenericObject, Object,
+from flatlib.object import (GenericObject, Object, 
                             House, FixedStar)
-from flatlib.lists import (GenericList, ObjectList,
+from flatlib.lists import (GenericList, ObjectList, 
                            HouseList, FixedStarList)
 
 
 # === Objects === #
 
-def getObject(ID, date, pos):
+def getObject(ID, date, pos,hsys,flags):
     """ Returns an ephemeris object. """
-    obj = eph.getObject(ID, date.jd, pos.lat, pos.lon)
+    # print(f"in getObject:{flags}")
+    obj = eph.getObject(ID, date.jd, pos.lat, pos.lon,hsys,flags)
     return Object.fromDict(obj)
 
-
-def getObjectList(IDs, date, pos):
+def getObjectList(IDs, date, pos,hsys,flags):
     """ Returns a list of objects. """
-    objList = [getObject(ID, date, pos) for ID in IDs]
+    objList = [getObject(ID, date, pos,hsys,flags) for ID in IDs]
     return ObjectList(objList)
 
 
 # === Houses and angles === #
 
-def getHouses(date, pos, hsys):
+def getHouses(date, pos, hsys,flags):
     """ Returns the lists of houses and angles.
     
     Since houses and angles are computed at the
     same time, this function should be fast.
     
     """
-    houses, angles = eph.getHouses(date.jd, pos.lat, pos.lon, hsys)
+    houses, angles = eph.getHouses(date.jd, pos.lat, pos.lon, hsys,flags)
     hList = [House.fromDict(house) for house in houses]
     aList = [GenericObject.fromDict(angle) for angle in angles]
     return (HouseList(hList), GenericList(aList))
-
-
-def getHouseList(date, pos, hsys):
+    
+def getHouseList(date, pos, hsys,flags):
     """ Returns a list of houses. """
-    return getHouses(date, pos, hsys)['houses']
+    return getHouses(date, pos, hsys,flags)['houses']
 
-
-def getAngleList(date, pos, hsys):
+def getAngleList(date, pos, hsys,flags):
     """ Returns a list of angles (Asc, MC..) """
-    return getHouses(date, pos, hsys)['angles']
+    return getHouses(date, pos, hsys,flags)['angles']
 
 
 # === Fixed stars === #
 
-def getFixedStar(ID, date):
+def getFixedStar(ID, date,flags):
     """ Returns a fixed star from the ephemeris. """
-    star = eph.getFixedStar(ID, date.jd)
+    star = eph.getFixedStar(ID, date.jd,flags)
     return FixedStar.fromDict(star)
 
-
-def getFixedStarList(IDs, date):
+def getFixedStarList(IDs, date,flags):
     """ Returns a list of fixed stars. """
-    starList = [getFixedStar(ID, date) for ID in IDs]
+    starList = [getFixedStar(ID, date,flags) for ID in IDs]
     return FixedStarList(starList)
 
 
@@ -82,7 +79,6 @@ def nextSolarReturn(date, lon):
     """ Returns the next date when sun is at longitude 'lon'. """
     jd = eph.nextSolarReturn(date.jd, lon)
     return Datetime.fromJD(jd, date.utcoffset)
-
 
 def prevSolarReturn(date, lon):
     """ Returns the previous date when sun is at longitude 'lon'. """
@@ -97,18 +93,15 @@ def nextSunrise(date, pos):
     jd = eph.nextSunrise(date.jd, pos.lat, pos.lon)
     return Datetime.fromJD(jd, date.utcoffset)
 
-
 def nextSunset(date, pos):
     """ Returns the date of the next sunset. """
     jd = eph.nextSunset(date.jd, pos.lat, pos.lon)
     return Datetime.fromJD(jd, date.utcoffset)
 
-
 def lastSunrise(date, pos):
     """ Returns the date of the last sunrise. """
     jd = eph.lastSunrise(date.jd, pos.lat, pos.lon)
     return Datetime.fromJD(jd, date.utcoffset)
-
 
 def lastSunset(date, pos):
     """ Returns the date of the last sunset. """
@@ -135,7 +128,6 @@ def prevSolarEclipse(date):
     eclipse = swe.solarEclipseGlobal(date.jd, backward=True)
     return Datetime.fromJD(eclipse['maximum'], date.utcoffset)
 
-
 def nextSolarEclipse(date):
     """ Returns the Datetime of the maximum phase of the
     next global solar eclipse.
@@ -145,7 +137,6 @@ def nextSolarEclipse(date):
     eclipse = swe.solarEclipseGlobal(date.jd, backward=False)
     return Datetime.fromJD(eclipse['maximum'], date.utcoffset)
 
-
 def prevLunarEclipse(date):
     """ Returns the Datetime of the maximum phase of the
     previous global lunar eclipse.
@@ -154,7 +145,6 @@ def prevLunarEclipse(date):
 
     eclipse = swe.lunarEclipseGlobal(date.jd, backward=True)
     return Datetime.fromJD(eclipse['maximum'], date.utcoffset)
-
 
 def nextLunarEclipse(date):
     """ Returns the Datetime of the maximum phase of the
