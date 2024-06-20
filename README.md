@@ -29,3 +29,14 @@ You can install flatlib with `pip3 install flatlib` or download the latest stabl
 ## Development
 
 You can clone this repository or download a zip file using the right side buttons. 
+
+打包pypi
+1.修改setup.py 版本号
+2.python setup.py sdist bdist_wheel
+3.twine upload dist/*
+4.输入name: __token__
+5.去pypi网站设置新的tokenAPI 粘贴。password:
+pypi-AgEIcHlwaS5vcmcCJGJkOGU1YmVlLWI0MWYtNDNlZS1hYmIzLTZmNmU3Njc5MzcwYgACFVsxLFsiZmxhdGxpYi10ZXNsYSJdXQACLFsyLFsiNGU4NjU2MWEtMzg5OS00NDAwLTg3M2EtZGI1YzE0N2E2ZGIwIl1dAAAGIIigw5s6NIQx_TFKUK-sLvfNbmDiX56_j1VLBgji918X
+pypi-AgEIcHlwaS5vcmcCJGYyYWJiMjJkLWUzNTctNGNmZC1hNjEwLThjOTIzNjg5MmVhYgACFVsxLFsiZmxhdGxpYi10ZXNsYSJdXQACLFsyLFsiNGU4NjU2MWEtMzg5OS00NDAwLTg3M2EtZGI1YzE0N2E2ZGIwIl1dAAAGINDrNsGYBwB-GboFink4JOZdznRzA1kgabmU6Bxpa-Se
+
+

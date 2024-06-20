@@ -10,7 +10,7 @@ from setuptools import find_packages
 setup(
     # Project
     name='flatlib_tesla',
-    version='0.0.1',
+    version='0.0.6',
 
     # Sources
     packages=find_packages(),

@@ -1,14 +1,12 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: flatlib-tesla
-Version: 0.0.1
+Version: 0.0.6
 Summary: Python library for Traditional Astrology
 Home-page: https://github.com/Tesla2678/flatlib_tesla
 Author: Tesla
 Author-email: Tesla2678@gmail.com
 License: MIT
-Description: UNKNOWN
 Keywords: Astrology,Traditional Astrology
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -17,3 +15,4 @@ Classifier: Environment :: Other Environment
 Classifier: Intended Audience :: Developers
 Classifier: Intended Audience :: Science/Research
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
+License-File: LICENSE

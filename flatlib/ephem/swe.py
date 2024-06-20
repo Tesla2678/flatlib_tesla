@@ -12,10 +12,15 @@
 """
 
 import swisseph
+import flatlib
 from flatlib import angle
 from flatlib import const
 
-
+# #define SE_PHOLUS               16#
+# #define SE_CERES                17#
+# #define SE_PALLAS               18#
+# #define SE_JUNO                 19#
+# #define SE_VESTA                20#
 # Map objects
 SWE_OBJECTS = {
     const.SUN: 0,
@@ -29,7 +34,12 @@ SWE_OBJECTS = {
     const.NEPTUNE: 8, 
     const.PLUTO: 9,
     const.CHIRON: 15, 
-    const.NORTH_NODE: 10
+    const.NORTH_NODE: 10,
+    const.PHOLUS: 16,
+    const.CERES: 17,
+    const.PALLAS: 18,
+    const.JUNO: 19,
+    const.VESTA: 20,
 }
 
 # Map house systems
@@ -64,9 +74,8 @@ def sweObject(obj, jd,flags):
     """ Returns an object from the Ephemeris. """
     # print(obj)
     sweObj = SWE_OBJECTS[obj]
+    setPath(flatlib.const.SE_PATH)
     sweList, flg = swisseph.calc_ut(jd, sweObj,flags)
-    # print("in sweObject")
-    # print(f"flag:{flg}")
     return {
         'id': obj,
         'lon': sweList[0],

@@ -8,7 +8,7 @@ import const
 # Set default swefile path
 swe.setPath(flatlib.PATH_RES + 'swefiles')
 
-swisseph.set_ephe_path()
+# swisseph.set_ephe_path(flatlib.PATH_RES + 'swefiles')
 date = Datetime(f'{2022}/{11}/{1}', f'{5}:{12}', 10)
 pos = GeoPos('35s12','150e33')
 

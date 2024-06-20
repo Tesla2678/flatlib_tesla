@@ -17,9 +17,6 @@ from . import tools
 from flatlib import angle
 from flatlib import const
 
-
-# === Objects === #
-
 def getObject(ID, jd, lat, lon,hsys,flags):
     """ Returns an object for a specific date and 
     location.

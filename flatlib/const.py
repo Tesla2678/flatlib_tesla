@@ -99,6 +99,12 @@ NORTH_NODE = 'North_Node'
 SOUTH_NODE = 'South_Node'
 SYZYGY = 'Syzygy'
 
+PHOLUS = 'Pholus'
+CERES = 'Ceres'
+PALLAS = 'Pallas'
+JUNO = 'Juno'
+VESTA = 'Vesta'
+
 PARS_FORTUNA = 'Pars_Fortuna'
 PARS_JINGSHEN="Pars_Jingshen"
 PARS_AISHEN="Pars_Aishen"
